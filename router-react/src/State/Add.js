@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-function Add(props) {
+import { context } from "../App";
+function Add() {
+  const value = useContext(context);
   const [email, setemail] = useState("");
   const [name, setname] = useState("");
   const [age, setage] = useState("");
@@ -13,7 +15,7 @@ function Add(props) {
   let navi = useNavigate();
 
   function handlesubmit() {
-    props.info.setdata([...props.info.data, datas]);
+    value.setdata([...value.data, datas]);
     navi("/all");
   }
   return (

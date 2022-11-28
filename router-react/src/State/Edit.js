@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { context } from "../App";
 
-function Edit(props) {
+function Edit() {
   let param = useParams();
+  const value = useContext(context);
 
-  const [email, setemail] = useState(props.info.data[param.id].email);
-  const [name, setname] = useState(props.info.data[param.id].name);
-  const [age, setage] = useState(props.info.data[param.id].age);
+  const [email, setemail] = useState(value.data[param.id].email);
+  const [name, setname] = useState(value.data[param.id].name);
+  const [age, setage] = useState(value.data[param.id].age);
   const datas = {
     email,
     name,
@@ -16,9 +18,11 @@ function Edit(props) {
   //   console.log(data);
   let navi = useNavigate();
 
-  function handlesubmit(i) {
-    props.info.data.splice(param.id, 1, datas);
-
+  function handlesubmit() {
+    value.data.splice(param.id, 1, datas);
+    // let newinfo = [...props.info.data];
+    // newinfo.splice(param.id, 1, datas);
+    // props.info.data(newinfo);
     navi("/all");
   }
   return (

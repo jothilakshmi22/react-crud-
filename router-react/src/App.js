@@ -2,8 +2,9 @@ import "./App.css";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import All from "./State/All";
 import Add from "./State/Add";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import Edit from "./State/Edit";
+export const context = React.createContext();
 function App() {
   const [data, setdata] = useState([
     {
@@ -30,13 +31,13 @@ function App() {
             <li>add</li>
           </Link>
         </ul>
-        <Routes>
-          <Route path="/all" element={<All info={{ data, setdata }} />} />
-          <Route path="/add" element={<Add info={{ data, setdata }} />} />
-          <Route path="/edit/:id" element={<Edit info={{ data, setdata }} />} />
-
-          
-        </Routes>
+        <context.Provider value={{ data, setdata }}>
+          <Routes>
+            <Route path="/all" element={<All />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/edit/:id" element={<Edit />} />
+          </Routes>
+        </context.Provider>
       </BrowserRouter>
     </>
   );

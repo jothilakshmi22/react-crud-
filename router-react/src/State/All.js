@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { context } from "../App";
 
 function All(props) {
+  const value = useContext(context);
+
   const handledelete = (i) => {
-    let newdata = [...props.info.data];
+    let newdata = [...value.data];
     newdata.splice(i, 1);
-    props.info.setdata(newdata);
+    value.setdata(newdata);
   };
   let navi = useNavigate();
 
@@ -21,7 +24,7 @@ function All(props) {
           </tr>
         </thead>
 
-        {props.info.data.map((ele, i) => {
+        {value.data.map((ele, i) => {
           return (
             <tr key={i}>
               {/* <th scope="row">{i}</th> */}
